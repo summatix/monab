@@ -2,7 +2,7 @@ var mongo = require('mongodb'),
     utils = require('node-utils'),
     events = new (require('events').EventEmitter)();
 
-function errorCallback(callback) {
+var errorCallback = exports.errorCallback = function(callback) {
     return function(err) {
         if (err) {
             console.log('DB error occurred:');
@@ -14,7 +14,7 @@ function errorCallback(callback) {
 
         callback && callback.apply(this, utils.shift(arguments));
     };
-}
+};
 
 exports.connect = function(dbname, dbhost, dbport, callback) {
     var db = new mongo.Db(dbname, new mongo.Server(
@@ -25,6 +25,10 @@ exports.connect = function(dbname, dbhost, dbport, callback) {
 
 exports.createCollection = function(db, name, callback) {
     db.createCollection(name, errorCallback(callback));
+};
+
+exports.getCollection = function(db, name, callback) {
+    db.collection(name, errorCallback(callback));
 };
 
 exports.drop = function(db, callback) {
