@@ -11,7 +11,7 @@ A MongoDB abstraction library for Node.JS.
 
 ## Node Compatibility
 
-The latest release of node-utils is compatible with node --version:
+The latest release of monab is compatible with node --version:
     v0.2.4
 
 ## License
