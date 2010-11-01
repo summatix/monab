@@ -31,6 +31,10 @@ exports.getCollection = function(db, name, callback) {
     db.collection(name, errorCallback(callback));
 };
 
+exports.insert = function(collection, data, callback) {
+    collection.insert(data, errorCallback(callback));
+};
+
 exports.drop = function(db, callback) {
     db.dropDatabase(errorCallback(callback));
 };
