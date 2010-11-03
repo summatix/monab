@@ -16,11 +16,14 @@ var errorCallback = exports.errorCallback = function(callback) {
     };
 };
 
-exports.connect = function(dbname, dbhost, dbport, callback) {
+exports.connect = function(dbname, dbhost, dbport, callback, strict) {
     var db = new mongo.Db(dbname, new mongo.Server(
         dbhost, dbport, {auto_reconnect: true}, {}));
 
-    db.open(errorCallback(function() { callback(db); }));
+    db.open(errorCallback(function() {
+        db.strict = typeof strict == 'undefined' ? true : !!strict;
+        callback(db);
+    }));
 };
 
 exports.createCollection = function(db, name, callback) {
